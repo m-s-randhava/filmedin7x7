@@ -3,8 +3,12 @@ import os
 from app import create_app, setup_app
 from flask.ext.script import Manager, Shell
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-setup_app(os.getenv('FLASK_CONFIG') or 'default')
+env_configuration = os.getenv('FLASK_CONFIG') if os.getenv('FLASK_CONFIG') else 'default'
+print os.getenv('FLASK_CONFIG')
+app = create_app(env_configuration)
+print "Running the " + env_configuration + " configuration ..."
+
+setup_app(env_configuration)
 manager = Manager(app)
 
 def make_shell_context():

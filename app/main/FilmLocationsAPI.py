@@ -13,7 +13,7 @@ class FilmLocations(Resource):
     def get(self, location):
         page = int(request.args.get('page'))
         results_per_page = current_app.config['RESULTS_PER_PAGE']
-        r_store = RedisStore(current_app.config['REDIS_AUTOCOMPLETE_SORTED_SET'])
+        r_store = RedisStore(current_app.config['REDIS_AUTOCOMPLETE_SORTED_SET'], current_app.config['REDIS_HOSTNAME'], current_app.config['REDIS_PORT'], current_app.config['REDIS_DB'], current_app.config['REDIS_PASSWORD'])
         film_locations = r_store.search(location)
         num_film_locations = len(film_locations)
 

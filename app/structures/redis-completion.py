@@ -2,8 +2,9 @@ __author__ = 'mohanrandhava'
 
 import urllib2
 from redis_completion import RedisEngine
+from config import config
 
-engine = RedisEngine(prefix='stocks',stop_words=None,cache_timeout=300,port=11827)
+engine = RedisEngine(prefix='stocks', stop_words=None, cache_timeout=300, host=config[config_name].REDIS_HOSTNAME, port=config[config_name].REDIS_PORT, db=config[config_name].REDIS_DB, password=config[config_name].REDIS_PASSWORD)
 
 def load_data():
     url = 'http://media.charlesleifer.com/downloads/misc/NYSE.txt'
