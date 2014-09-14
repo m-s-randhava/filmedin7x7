@@ -11,7 +11,7 @@ class LoadRedis(object):
     def __init__(self, config_name, locations_json_file, locations_geocoded_json_file):
         self.locations_json_file = locations_json_file
         self.locations_geocoded_json_file = locations_geocoded_json_file
-        self.engine = RedisEngine(prefix=config[config_name].REDIS_AUTOCOMPLETE_SORTED_SET)
+        self.engine = RedisEngine(prefix=config[config_name].REDIS_AUTOCOMPLETE_SORTED_SET,stop_words=None,cache_timeout=300,port=11827)
         self.engine.flush()
 
     def load_locations_prefixes_into_redis(self):
