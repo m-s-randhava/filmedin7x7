@@ -4,7 +4,6 @@ from app import create_app, setup_app
 from flask.ext.script import Manager, Shell
 
 env_configuration = os.getenv('FLASK_CONFIG') if os.getenv('FLASK_CONFIG') else 'default'
-env_configuration = 'development'
 print os.getenv('FLASK_CONFIG')
 
 app = create_app(env_configuration)
