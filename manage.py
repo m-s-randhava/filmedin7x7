@@ -3,6 +3,7 @@ import os
 from app import create_app, setup_app
 from flask import request, g
 from flask.ext.script import Manager, Shell
+import scipy.spatial as ss
 
 env_configuration = os.getenv('FLASK_CONFIG') if os.getenv('FLASK_CONFIG') else 'default'
 print os.getenv('FLASK_CONFIG')
