@@ -25,7 +25,7 @@ class TestSearchRedis(TestCase):
         l = LoadRedis(os.getenv('FLASK_CONFIG') or 'default','film_locations_in_san_francisco_decorated.json','film_locations_in_san_francisco_coord.json')
         l.load_locations_prefixes_into_redis()
 
-        rStore = RedisStore(current_app.config['REDIS_AUTOCOMPLETE_SORTED_SET'])
+        rStore = RedisStore(current_app.config['REDIS_AUTOCOMPLETE_SORTED_SET'], current_app.config['REDIS_HOSTNAME'], current_app.config['REDIS_PORT'], current_app.config['REDIS_DB'], current_app.config['REDIS_PASSWORD'])
 
         mysql_locations_results = f.readlines()
         mysql_locations_results = [mysql_locations_result.strip(' \t\n\r') for mysql_locations_result in mysql_locations_results]
