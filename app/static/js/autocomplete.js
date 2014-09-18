@@ -11,6 +11,10 @@ $( document ).ready(function() {
     $("#search_location").autocomplete({
           source: "film/locations/autocomplete",
           minLength: 2,
+          response: function( event, ui ) {
+              console.log("response ...");
+
+          },
           select: function (event, ui) {
               console.log(ui.item ?
                       "Selected: " + ui.item.value + " aka " + ui.item.id :

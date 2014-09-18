@@ -42,6 +42,9 @@ a:hover { color: #4B58A6; }
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
     border:1px solid #222!important;
+    position: absolute;
+    cursor: default;
+    z-index:30 !important;
 }
 
 canvas {-ms-touch-action: double-tap-zoom;}

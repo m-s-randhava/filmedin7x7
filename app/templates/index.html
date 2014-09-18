@@ -38,25 +38,17 @@
         <div class='col-md-4'>
           <div class='well'>
             <h4>
-              Address/Location <small>(<a id='find_me' href='#'>find me</a>)</small>
+                Find Movies By Address/Location: <small>(<a id='find_me' href='#'>find me</a>)</small>
             </h4>
             <p>
               <input class='form-control' id='search_location' placeholder='Enter an address or an intersection' type='text' />
             </p>
-            <p>
-              <label>
-                within
-                <select id='search_radius'>
-                  <option value='400'>2 blocks</option>
-                  <option value='805'>1/2 mile</option>
-                  <option value='1610'>1 mile</option>
-                  <option value='3220'>2 miles</option>
-                </select>
-              </label>
-            </p>
+            <h4>
+                OR:
+            </h4>
             <a class='btn btn-primary' id='search' href='#'>
               <i class='glyphicon glyphicon-search'></i>
-              Search
+              Find Nearest 7 Movie Locations
             </a>
             <a class='btn btn-default' id='reset' href='#'>
               <i class='glyphicon glyphicon-repeat'></i>
@@ -148,7 +140,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.geocomplete.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/maps_lib.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
+    <!--<script type="text/javascript" src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/backbone-min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/models/movieLocation.js') }}"></script>

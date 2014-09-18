@@ -178,6 +178,11 @@ var MapsLib = {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         foundLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+
+        console.log("pLat:   " + position.coords.latitude);
+        console.log("pLng:   " + position.coords.longitude);
+        console.log("fLoc:   " + foundLocation);
+
         MapsLib.addrFromLatLng(foundLocation);
       }, null);
     }

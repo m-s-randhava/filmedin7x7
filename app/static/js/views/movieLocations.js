@@ -15,15 +15,17 @@ app.movieLocationsView = Backbone.View.extend({
         var mLListIcons = ["A.png","B.png","C.png","D.png","E.png","F.png","G.png","H.png","I.png","J.png"];
         var mLListIconsIndex = 0;
         this.$el.hide().empty();
-        this.collection.each(
-            function(mLListIcons, mLListIconsIndex) {
-                return function ( movieLocation ) {
-                    this.renderMovieLocation(movieLocation, mLListIcons[mLListIconsIndex++] );
-                };
-            }(mLListIcons, mLListIconsIndex),
-            this
-        );
-        this.$el.fadeIn();
+        if (this.collection.location != "") {
+            this.collection.each(
+                function(mLListIcons, mLListIconsIndex) {
+                    return function ( movieLocation ) {
+                        this.renderMovieLocation(movieLocation, mLListIcons[mLListIconsIndex++] );
+                    };
+                }(mLListIcons, mLListIconsIndex),
+                this
+            );
+            this.$el.fadeIn();
+        }
     },
 
     renderMovieLocation: function( movieLocation, movieLocationListIcon ) {

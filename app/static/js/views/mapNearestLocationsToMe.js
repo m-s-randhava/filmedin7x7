@@ -3,34 +3,23 @@
  */
 var app = app || {};
 
-app.mapMovieLocationsView = Backbone.View.extend({
+app.mapNearestLocationsToMe = Backbone.View.extend({
     el: '.col-md-8',
-    map_centroid: new google.maps.LatLng(37.780870, -122.419204), //center that map defaults to (San Francisco City Hall)
 
     initialize: function( ) {
         this.listenTo( this.collection, 'reset', this.render);
     },
 
-    reset: function() {
-        var myOptions = {
-            zoom: 13,
-            center: this.map_centroid,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map = new google.maps.Map($("#map_canvas")[0], myOptions);
-    },
-
     render: function() {
         var myOptions = {
           zoom: 13,
-          center: this.map_centroid,
+          center: MapsLib.map_centroid,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
         map = new google.maps.Map($("#map_canvas")[0],myOptions);
 
-         /**
+        /**
          * Data for the markers consisting of a name, a LatLng and a zIndex for
          * the order in which these markers should display on top of each
          * other.
@@ -73,5 +62,4 @@ app.mapMovieLocationsView = Backbone.View.extend({
 
         setMarkers(map, locations);
     }
-
 });
