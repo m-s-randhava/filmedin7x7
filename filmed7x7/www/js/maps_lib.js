@@ -40,7 +40,7 @@ var MapsLib = {
   searchRadius:       805,            //in meters ~ 1/2 mile
   defaultZoom:        13,             //zoom level when map is loaded (bigger is more zoomed in)
 //  addrMarkerImage:    'static/images/blue-pushpin.png',
-  addrMarkerImage:    'static/images/filmlocationA.png',
+  addrMarkerImage:    'static/img/filmlocationA.png',
   currentPinpoint:    null,
 
   initialize: function() {
@@ -178,6 +178,11 @@ var MapsLib = {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         foundLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+
+        console.log("pLat:   " + position.coords.latitude);
+        console.log("pLng:   " + position.coords.longitude);
+        console.log("fLoc:   " + foundLocation);
+
         MapsLib.addrFromLatLng(foundLocation);
       }, null);
     }

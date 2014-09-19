@@ -4,5 +4,5 @@
 var app = app || {};
 
 app.movieLocation = Backbone.Model.extend({
-    idAttribute: "filmid"
+    idAttribute: "http://filmedin7x7.herokuapp.com/filmid"
 });

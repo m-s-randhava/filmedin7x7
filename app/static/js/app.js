@@ -9,20 +9,28 @@ $( function() {
     $('#results_list_container').hide();
     $('#results_info').hide();
 
-    var collection = new app.movieLocations();
+    var collectionMovieLocations = new app.movieLocations();
+    var collectionMovieLocationsNearMe = new app._7MovieLocationsNearMe();
 
     var searchView = new app.movieLocationsSearchView({
-        collection: collection
+        collection: collectionMovieLocations
+    });
+
+    var searchNearMeView = new app.movieLocationsSearchNearMeView({
+        collection: collectionMovieLocationsNearMe
     });
 
     var mapMovieLocationsView = new app.mapMovieLocationsView({
-        collection: collection
+        collection: collectionMovieLocations
+    });
+
+    var mapNearestLocationsToMeView = new app.mapNearestLocationsToMe({
+        collection: collectionMovieLocationsNearMe
     });
 
     $("#search_location").autocomplete(function(typed, searchView){
         return {
             source: "film/locations/autocomplete",
-//            minLength: 2,
             response: function( event, ui ) {
                 console.log("autocomplete response called ...");
                 $('.ui-helper-hidden-accessible').hide();
@@ -46,21 +54,10 @@ $( function() {
            console.log("input events called ...");
            console.log("input changed...");
            if (event.target.value.length == 0) {
-//               mapView.reset();
                searchView.doSearch(event.target.value);
            }
        };
    }(mapMovieLocationsView,searchView));
 
-//    $("#search_location").bind("change", function(mapView){
-//        return function (e) {
-//            console.log("input value:  " + e.target.value);
-//            console.log("input value length:  " + e.target.value.length);
-//
-//            if(e.target.value.length == 0) {
-//                mapView.render(true);
-//            }
-//        }
-//    }(mapMovieLocationsView));
 
 });

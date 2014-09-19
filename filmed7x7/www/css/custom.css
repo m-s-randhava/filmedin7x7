@@ -42,6 +42,15 @@ a:hover { color: #4B58A6; }
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
     border:1px solid #222!important;
+    position: absolute;
+    cursor: default;
+    z-index:30 !important;
 }
 
+.navbar-brand {
+    font-family: Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+    font-size: 60px;
+    padding-left: 60px;
+    padding-top: 40px;
+}
 canvas {-ms-touch-action: double-tap-zoom;}

@@ -49,7 +49,7 @@ app.mapMovieLocationsView = Backbone.View.extend({
                         anchor: new google.maps.Point(0, 40)
                     };
                     var location = item.get("location");
-                    return [item.get("Title"), location["lat"], location["lng"], ++index, image];
+                    return [item.get("Title"), location["lat"], location["lng"], ++index, image, item];
                 };
             }(mLIcons, 0)
         );
@@ -58,16 +58,46 @@ app.mapMovieLocationsView = Backbone.View.extend({
           // Add markers to the map
             console.log("Number of markers:   " + locations.length)
             for (var i = 0; i < locations.length; i++) {
-            var location = locations[i];
-            var myLatLng = new google.maps.LatLng(location[1], location[2]);
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                icon: location[4],
-                title: location[0],
-                zIndex: location[3]
-            });
+                var location = locations[i];
+                var myLatLng = new google.maps.LatLng(location[1], location[2]);
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: location[4],
+                    title: location[0],
+                    zIndex: location[3]
+                });
+
+                var contentString = '<div id="content">'+
+                  '<div id="siteNotice">'+
+                  '</div>'+
+                  '<h1 id="firstHeading" class="firstHeading">' + location[5].get('Title') + '</h1>'+
+                  '<div id="bodyContent">'+
+                  '<p><b>Production Company:  </b>' + location[5].get('Production Company') + '</p>'+
+                  '<p><b>Locations:     </b>' + location[5].get('Locations') + '</p>'+
+                  '<p><b>Director:      </b>' + location[5].get('Director') + '</p>'+
+                  '<p><b>Actor 1:       </b>' + location[5].get('Actor 1') + '</p>'+
+                  '<p><b>Actor 2:       </b>' + location[5].get('Actor 2') + '</p>'+
+                  '<p><b>Actor 3:       </b>' + location[5].get('Actor 3') + '</p>'+
+                  '<p><b>Fun Facts:     </b>' + location[5].get('Fun Facts') + '</p>'+
+                  '<p><b>Distributor:   </b>' + location[5].get('Distributor') + '</p>'+
+                  '<p><b>Release Year:  </b>' + location[5].get('Release Year') + '</p>'+
+                  '<p><b>Writer:        </b>' + location[5].get('Writer') + '</p>'+
+                  '</div>'+
+                  '</div>';
+
+                var infowindow = new google.maps.InfoWindow({
+                  content: contentString,
+                  maxWidth: 200
+                });
+
+                google.maps.event.addListener(marker, 'click', function (marker, infowindow) {
+                    return function() {
+                        infowindow.open(map,marker);
+                    }
+                }(marker, infowindow));
             }
         }
 

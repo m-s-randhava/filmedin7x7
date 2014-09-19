@@ -3,7 +3,7 @@
  */
 var app = app || {};
 
-app.movieLocationsView = Backbone.View.extend({
+app.movieLocationsNearMeView = Backbone.View.extend({
     el: '#results_list',
 
     initialize: function( ) {

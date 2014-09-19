@@ -13,23 +13,28 @@ app.resultsPaginatorView = Backbone.View.extend({
     },
 
     update: function() {
-        this.model.fetch(function(collection, model) {
-            return {
-                data: $.param({ page: collection.page}),
-                error: function(model, xhr, options) {
-                    this.set({
-                        "count": 0,
-                        "next": 0,
-                        "pages": 0,
-                        "prev": 0
-                    });
-                }.bind(model)
-            };
-        }(this.collection, this.model));
+        if (this.collection.location != "") {
+            this.model.fetch(function(collection, model) {
+                return {
+                    data: $.param({ page: collection.page}),
+                    error: function(model, xhr, options) {
+                        this.set({
+                            "count": 0,
+                            "next": 0,
+                            "pages": 0,
+                            "prev": 0
+                        });
+                    }.bind(model)
+                };
+            }(this.collection, this.model));
+        } else {
+            this.$el.hide();
+        }
     },
 
     render: function() {
         $( "#result_count" ).html(this.model.get('count') + " results found");
+        $( ".alert.alert-info").show();
         var json = this.model.toJSON();
         json['parray'] = [];
 

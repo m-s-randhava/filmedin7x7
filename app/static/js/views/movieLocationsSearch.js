@@ -6,10 +6,6 @@ var app = app || {};
 app.movieLocationsSearchView = Backbone.View.extend({
     el: '.col-md-4',
 
-    events: {
-        'click #search': 'doSearch'
-    },
-
     initialize: function( ) {
         var model = new app.resultsPaginator();
 

@@ -9,8 +9,12 @@ $( document ).ready(function() {
     };
 
     $("#search_location").autocomplete({
-          source: "http://10.0.1.5:5000/film/locations/autocomplete",
+          source: "film/locations/autocomplete",
           minLength: 2,
+          response: function( event, ui ) {
+              console.log("response ...");
+
+          },
           select: function (event, ui) {
               console.log(ui.item ?
                       "Selected: " + ui.item.value + " aka " + ui.item.id :

@@ -6,6 +6,6 @@ var app = app || {};
 app.movieLocations = Backbone.Collection.extend({
     model: app.movieLocation,
     url: function() {
-        return 'http://10.0.1.5:5000/film/locations/' + this.location;
+        return 'http://filmedin7x7.herokuapp.com/film/locations/' + this.location;
     }
 });
