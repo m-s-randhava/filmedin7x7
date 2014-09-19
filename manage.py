@@ -27,8 +27,9 @@ filmLocationsKDTree.build_kd_tree()
 @app.before_request
 def before_request():
     print "before request ..."
-    g.filmlocationsKDTree = filmLocationsKDTree
-    g.invertedPointLocationIndex = invertedPointLocationIndex
+    if request.endpoint == 'films_near_me':
+        g.filmlocationsKDTree = filmLocationsKDTree
+        g.invertedPointLocationIndex = invertedPointLocationIndex
 
 def make_shell_context():
     return dict(app=app)
