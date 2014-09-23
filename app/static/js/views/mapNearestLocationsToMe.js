@@ -3,23 +3,36 @@
  */
 var app = app || {};
 
+/**
+ *  Creates a Backbone.js view bound to the '.col-md-8' of
+ *  the right pane view.  It is tied to a collection that queries
+ *  the backend for 7 movies with near the user's current position
+ *  in the world:
+ *
+ *      collectionMovieLocationsNearMe (collections/7MovieLocationsNearMe.js)  =>  FindNearestFilmsAtLocationAPI
+ *
+ */
 app.mapNearestLocationsToMe = Backbone.View.extend({
     el: '.col-md-8',
 
     initialize: function( ) {
+        //  Listen to 'reset' events on collection and then render
         this.listenTo( this.collection, 'reset', this.render);
     },
 
     render: function() {
-//        var myLatLng = new google.maps.LatLng(this.collection.lat, this.collection.lng);
-        var myLatLng = new google.maps.LatLng(37.779390, -122.418432);
+        //  Current position of user in the world
+        var myLatLng = new google.maps.LatLng(this.collection.lat, this.collection.lng);
+//        var myLatLng = new google.maps.LatLng(37.779390, -122.418432);
 
+        //  Initialize map settings, centered on SF City Hall
         var myOptions = {
           zoom: 13,
           center: myLatLng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
+        //  New Google Map
         map = new google.maps.Map($("#map_canvas")[0],myOptions);
 
         /**
@@ -27,11 +40,14 @@ app.mapNearestLocationsToMe = Backbone.View.extend({
          * the order in which these markers should display on top of each
          * other.
          */
+
+        //  Icons for the markers
         var mLIcons = [ "filmlocationA.png","filmlocationB.png","filmlocationC.png",
                         "filmlocationD.png","filmlocationE.png","filmlocationF.png",
                         "filmlocationG.png","filmlocationH.png","filmlocationI.png",
                         "filmlocationJ.png"];
 
+        //  Create a set of images for each marker to place on map
         var locations = this.collection.map(
             function(mLIcons, index) {
                 return function(item) {
@@ -50,6 +66,7 @@ app.mapNearestLocationsToMe = Backbone.View.extend({
             }(mLIcons, 0)
         );
 
+        //  Add markers to the map
         function setMarkers(map, locations) {
           // Add markers to the map
             console.log("Number of markers:   " + locations.length)
@@ -67,6 +84,7 @@ app.mapNearestLocationsToMe = Backbone.View.extend({
             }
         }
 
+        //  Mark user's current position
         function setMyPositionMarker(map, myLatLng) {
             // Add markers to the map
             var marker = new google.maps.Marker({
@@ -79,6 +97,7 @@ app.mapNearestLocationsToMe = Backbone.View.extend({
             });
         }
 
+        //  Mark 7 seven nearest films and user's position
         setMarkers(map, locations);
         setMyPositionMarker(map, myLatLng);
     }

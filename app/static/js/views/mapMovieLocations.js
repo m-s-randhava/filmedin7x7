@@ -3,25 +3,39 @@
  */
 var app = app || {};
 
+/**
+ *  Creates a Backbone.js view bound to the '.col-md-8' of
+ *  the right pane view.  It is tied to a collection that queries
+ *  the backend for films with locations matching the searched for
+ *  words or phrase:
+ *
+ *      collectionMovieLocations (collections/movieLocations.js)        =>  FilmsAtLocationsAPI
+ *
+ */
 app.mapMovieLocationsView = Backbone.View.extend({
     el: '.col-md-8',
     map_centroid: new google.maps.LatLng(37.780870, -122.419204), //center that map defaults to (San Francisco City Hall)
 
     initialize: function( ) {
+        //  Listen to 'reset' events on collection and then render
         this.listenTo( this.collection, 'reset', this.render);
     },
 
     reset: function() {
+        //  Initialize map settings, centered on SF City Hall
         var myOptions = {
             zoom: 13,
             center: this.map_centroid,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
+        //  New Google Map
         map = new google.maps.Map($("#map_canvas")[0], myOptions);
     },
 
+    //  Render a new map with any associated markers
     render: function() {
+        //  Initialize map settings, centered on SF City Hall
         var myOptions = {
           zoom: 13,
           center: this.map_centroid,
@@ -30,12 +44,16 @@ app.mapMovieLocationsView = Backbone.View.extend({
 
         map = new google.maps.Map($("#map_canvas")[0],myOptions);
 
-         /**
-         * Data for the markers consisting of a name, a LatLng and a zIndex for
-         * the order in which these markers should display on top of each
-         * other.
-         */
+        /**
+        * Data for the markers consisting of a name, a LatLng and a zIndex for
+        * the order in which these markers should display on top of each
+        * other.
+        */
+
+        //  Icons for the markers
         var mLIcons = ["filmlocationA.png","filmlocationB.png","filmlocationC.png","filmlocationD.png","filmlocationE.png","filmlocationF.png","filmlocationG.png","filmlocationH.png","filmlocationI.png","filmlocationJ.png"];
+
+        //  Create a set of images for each marker to place on map
         var locations = this.collection.map(
             function(mLIcons, index) {
                 return function(item) {
@@ -54,6 +72,7 @@ app.mapMovieLocationsView = Backbone.View.extend({
             }(mLIcons, 0)
         );
 
+        //  Add markers to the map
         function setMarkers(map, locations) {
           // Add markers to the map
             console.log("Number of markers:   " + locations.length)
@@ -70,6 +89,7 @@ app.mapMovieLocationsView = Backbone.View.extend({
                     zIndex: location[3]
                 });
 
+                //  Add clickable film location info for map icon
                 var contentString = '<div id="content">'+
                   '<div id="siteNotice">'+
                   '</div>'+
@@ -93,14 +113,16 @@ app.mapMovieLocationsView = Backbone.View.extend({
                   maxWidth: 200
                 });
 
+                //  A listener to display info window for content
                 google.maps.event.addListener(marker, 'click', function (marker, infowindow) {
                     return function() {
                         infowindow.open(map,marker);
                     }
-                }(marker, infowindow));
+                }(marker, infowindow)); //  Closure ...
             }
         }
 
+        //  Add markers to map
         setMarkers(map, locations);
     }
 

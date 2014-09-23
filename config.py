@@ -26,6 +26,16 @@ class TestingConfig(Config):
     REDIS_DB = 0
     REDIS_PASSWORD = None
 
+#   This redis server is not started and aids in testing Redis errors.
+class TestingConfigRedisUnavailable(Config):
+    TESTING = True
+    REDIS_AUTOCOMPLETE_SORTED_SET = 'locations'
+    RESULTS_PER_PAGE = 10
+    REDIS_HOSTNAME = 'localhost'
+    REDIS_PORT = 9999
+    REDIS_DB = 0
+    REDIS_PASSWORD = None
+
 class ProductionConfig(Config):
     PRODUCTION = True
     REDIS_AUTOCOMPLETE_SORTED_SET = 'locations'
@@ -43,6 +53,7 @@ class HerokuConfig(Config):
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
+    'testing_redis_ua': TestingConfigRedisUnavailable,
     'production': ProductionConfig,
     'heroku': HerokuConfig,
     'default': DevelopmentConfig

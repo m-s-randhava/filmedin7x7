@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.mapping.filmed7x7" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="DisallowOverscroll" value="false" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="FadeSplashScreenDuration" value=".25" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="true" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="TopActivityIndicator" value="gray" />
+    <preference name="GapBetweenPages" value="0" />
+    <preference name="PageLength" value="0" />
+    <preference name="PaginationBreakingMode" value="page" />
+    <preference name="PaginationMode" value="unpaginated" />
+    <feature name="LocalStorage">
+        <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <icon height="60" src="www/img/icon/ios7/Icon-60.png" width="60" />
+    <icon height="120" src="www/img/icon/ios7/Icon-60@2x.png" width="120" />
+    <icon height="76" src="www/img/icon/ios7/Icon-76.png" width="76" />
+    <icon height="152" src="www/img/icon/ios7/Icon-76@2x.png" width="152" />
+    <icon height="40" src="www/img/icon/ios7/Icon-40.png" width="40" />
+    <icon height="80" src="www/img/icon/ios7/Icon-40@2x.png" width="80" />
+    <icon height="57" src="www/img/icon/ios7/Icon.png" width="57" />
+    <icon height="114" src="www/img/icon/ios7/Icon@2x.png" width="114" />
+    <icon height="72" src="www/img/icon/ios7/Icon-72.png" width="72" />
+    <icon height="144" src="www/img/icon/ios7/Icon-72@2x.png" width="144" />
+    <icon height="29" src="www/img/icon/ios7/Icon-small.png" width="29" />
+    <icon height="58" src="www/img/icon/ios7/Icon-small@2x.png" width="58" />
+    <name>filmed7x7</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

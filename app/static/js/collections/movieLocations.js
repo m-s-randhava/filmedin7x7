@@ -8,4 +8,13 @@ app.movieLocations = Backbone.Collection.extend({
     url: function() {
         return '/film/locations/' + this.location;
     }
+    ,
+    parse: function(response, xhr) {
+        this.prev = xhr.xhr.getResponseHeader('prev');
+        this.next = xhr.xhr.getResponseHeader('next');
+        this.page = xhr.xhr.getResponseHeader('page');
+        this.num_films_at_locations = xhr.xhr.getResponseHeader('num_films_at_locations');
+        this.pages = xhr.xhr.getResponseHeader('pages');
+        return response;
+    }
 });
