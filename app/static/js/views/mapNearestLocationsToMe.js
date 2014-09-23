@@ -22,8 +22,8 @@ app.mapNearestLocationsToMe = Backbone.View.extend({
 
     render: function() {
         //  Current position of user in the world
-//        var myLatLng = new google.maps.LatLng(this.collection.lat, this.collection.lng);
-        var myLatLng = new google.maps.LatLng(37.779390, -122.418432);
+        var myLatLng = new google.maps.LatLng(this.collection.lat, this.collection.lng);
+//        var myLatLng = new google.maps.LatLng(37.779390, -122.418432);
 
         //  Initialize map settings, centered on SF City Hall
         var myOptions = {
