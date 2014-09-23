@@ -7,6 +7,8 @@ from app import create_app
 class test_GET_Film_Locations_API_Redis_UA(unittest.TestCase):
     def setUp(self):
         self.mysql_results_file_for_Mar = 'found_locations_mysql_prefix_Mar.txt'
+
+        #   The configuration where Redis is improperly configured
         self.app = create_app('testing_redis_ua')
         self.app_context = self.app.app_context()
         self.app_context.push()
@@ -16,17 +18,10 @@ class test_GET_Film_Locations_API_Redis_UA(unittest.TestCase):
         self.app_context.pop()
 
     def test_request_redis_unavailable(self):
-        """ TESTING IF Autocomplete API will return all 'Locations' which have
-            words within starting with 'mar' (case-insensitive)
+        """ TESTING IF the application gracefully handles an 'unavailable' redis instance
+            by throwing an exception
 
-            COMPARING WITH data retrieved from data loaded into MySQL from
-            raw file 'film_locations_in_san_francisco.csv' which was
-            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
-
-            The comparison data was retrieved from MySQL using the following
-            query:
-
-            SELECT Locations FROM Locations WHERE Locations REGEXP '[[:<:]]Mar.*'
+            VERIFIED by detecting that the expected response is an empty array
         """
         expected_response_as_json = []
         response = self.client.get(url_for('filmlocations_auto_complete') + '?term=mar')

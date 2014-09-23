@@ -37,6 +37,18 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(71, int(response.headers.get('num_films_at_locations')))
 
     def test_request_non_existent_location(self):
+        """ TESTING IF Autocomplete API will return no 'Locations' which have
+            words within starting with 'zzzzzz' (case-insensitive)
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations REGEXP '[[:<:]]zzzzzz.*'
+        """
         response = self.client.get(url_for('film_locations',location='zzzzzz') + '?page=1')
         expected_response = []
         self.assertEquals(expected_response, json.loads(response.get_data()))
@@ -47,6 +59,19 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(0, int(response.headers.get('num_films_at_locations')))
 
     def test_request_non_existent_numeric_location(self):
+        """ TESTING IF Autocomplete API will return no 'Locations' which have
+            words within starting with '12345' (case-insensitive) and handles
+            non-alphabetic input without bombing out
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations REGEXP '[[:<:]]12345.*'
+        """
         response = self.client.get(url_for('film_locations',location='12345') + '?page=1')
         expected_response = []
         self.assertEquals(expected_response, json.loads(response.get_data()))
@@ -57,6 +82,19 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(0, int(response.headers.get('num_films_at_locations')))
 
     def test_request_non_existent_non_alphanumeric_location(self):
+        """ TESTING IF Autocomplete API will return no 'Locations' which have
+            words within starting with '!#$%@' (case-insensitive) and handles
+            non-alphanumeric input without bombing out
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations REGEXP '[[:<:]]!#$%@.*'
+        """
         response = self.client.get(url_for('film_locations',location='!#$%@') + '?page=1')
         expected_response = []
         self.assertEquals(expected_response, json.loads(response.get_data()))
@@ -67,6 +105,20 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(0, int(response.headers.get('num_films_at_locations')))
 
     def test_request_single_location_multiple_films(self):
+        """ TESTING IF Autocomplete API will return 'Locations' which have
+            words with multiple films having words starting with all the words in
+            'Japanese Tea Garden (Hagiwara Tea Garden Drive, Golden Gate Park)'
+            (case-insensitive, diregarding non-alphanumeric input)
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations REGEXP '[[:<:]]!#$%@.*'
+        """
         location = urllib.quote('Japanese Tea Garden (Hagiwara Tea Garden Drive, Golden Gate Park)')
         response = self.client.get(url_for('film_locations',location=location) + '?page=1')
         expected_response = [{"location_mercator": {"y": 4180451.363177985, "x": 546663.6273682178}, "Title": "Jade", "Production Company": "Paramount Pictures", "Writer": "Joe Eszterhas", "Locations": "Japanese Tea Garden (Hagiwara Tea Garden Drive, Golden Gate Park)", "Director": "William Friedkin", "Actor 3": "", "filmid": 448, "Actor 1": "David Caruso", "Actor 2": "Linda Fiorentino", "Fun Facts": "The Japanese Hagiwara family invented \"Chinese\" fortune cookies in the tea-garden", "Distributor": "Paramount Pictures", "Release Year": "1995", "location": {"lat": 37.7702043, "lng": -122.4701584}}, {"location_mercator": {"y": 4180451.363177985, "x": 546663.6273682178}, "Title": "Petulia", "Production Company": "Warner Brothers / Seven Arts", "Writer": "Lawrence B. Marcus", "Locations": "Japanese Tea Garden, Hagiwara Tea Garden Drive, Golden Gate Park", "Director": "Richard Lester", "Actor 3": "", "filmid": 636, "Actor 1": "Julie Christie", "Actor 2": "George C. Scott", "Fun Facts": "The Japanese Hagiwara family invented \"Chinese\" fortune cookies in the tea-garden", "Distributor": "Warner Brothers / Seven Arts", "Release Year": "1968", "location": {"lat": 37.7702043, "lng": -122.4701584}}, {"location_mercator": {"y": 4180451.363177985, "x": 546663.6273682178}, "Title": "The Wedding Planner", "Production Company": "Columbia Pictures", "Writer": "Pamela Falk", "Locations": "Japanese Tea Garden (Hagiwara Tea Garden Drive, Golden Gate Park)", "Director": "Adam Shankman", "Actor 3": "", "filmid": 969, "Actor 1": "Jennifer Lopez", "Actor 2": "Matthew McConaughey", "Fun Facts": "The Japanese Hagiwara family invented \"Chinese\" fortune cookies in the tea-garden", "Distributor": "Sony Pictures Entertainment", "Release Year": "2001", "location": {"lat": 37.7702043, "lng": -122.4701584}}]
@@ -78,6 +130,19 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(3, int(response.headers.get('num_films_at_locations')))
 
     def test_request_existing_alphanumeric_single_location_single_film(self):
+        """ TESTING IF Autocomplete API will return only one 'Location' which has
+            words exactly matching all the words in '100 Block of Lombard Street'
+            (case-insensitive, diregarding non-alphanumeric input)
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations = '100 Block of Lombard Street'
+        """
         location = urllib.quote('100 Block of Lombard Street')
         response = self.client.get(url_for('film_locations',location=location) + '?page=1')
         expected_response = [{"location_mercator": {"y": 4184021.396444749, "x": 551170.1049553965}, "Title": "The Love Bug", "Production Company": "Walt Disney Productions", "Writer": "Bill Walsh", "Locations": "100 Block of Lombard Street", "Director": "Robert Stevenson", "Actor 3": "Ed Harris", "filmid": 902, "Actor 1": "Dean Jones", "Actor 2": "Michele Lee", "Fun Facts": "Lombard Street is not actually the crookedest in SF. That honor goes to Potrero Hill's Vermont Street between 22nd and 23rd.", "Distributor": "Buena Vista Distribution", "Release Year": "1968", "location": {"lat": 37.802139, "lng": -122.41874}}]
@@ -89,6 +154,19 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(1, int(response.headers.get('num_films_at_locations')))
 
     def test_request_existing_alphabetic_single_location_single_film(self):
+        """ TESTING IF Autocomplete API will return the one 'Locations' which has
+            words exactly matching all the words in 'Alioto Park'
+            (case-insensitive, diregarding non-alphanumeric input)
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations = 'Alioto Park'
+        """
         location = urllib.quote('Alioto Park')
         response = self.client.get(url_for('film_locations',location=location) + '?page=1')
         expected_response = [{"location_mercator": {"y": 4179220.676574393, "x": 551252.3294737589}, "Title": "Dawn of the Planet of the Apes", "Production Company": "Fox Louisiana Productions, LLC", "Writer": "Rick Jaffa", "Locations": "Alioto Park", "Director": "Matt Reeves", "Actor 3": "Andy Serkis", "filmid": 196, "Actor 1": "Gary Oldman", "Actor 2": "Keri Russell", "Fun Facts": "", "Distributor": "Twentieth Century Fox", "Release Year": "2014", "location": {"lat": 37.7588666, "lng": -122.4181453}}]
@@ -100,6 +178,20 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(1, int(response.headers.get('num_films_at_locations')))
 
     def test_request_existing_alphabetic_single_location_exact_match(self):
+        """ TESTING IF Autocomplete API will return only the one 'Location' which has
+            words exactly matching all the words in 'Alco Plaza'
+            (case-insensitive, diregarding non-alphanumeric input) which occurs
+            when 'ac_selected=True'
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations = 'Alco Plaza'
+        """
         location = urllib.quote('Alco Plaza')
         response = self.client.get(url_for('film_locations',location=location) + '?page=1&ac_selected=True')
         expected_response = [{"location_mercator": {"y": 3874241.6097306004, "x": 732801.9287159997}, "Title": "Freebie and the Bean", "Production Company": "Warner Bros. Pictures", "Writer": "Robert Kaufman", "Locations": "Alco Plaza", "Director": "Richard Rush", "Actor 3": "Katherine Hepburn", "filmid": 317, "Actor 1": "Alan Arkin", "Actor 2": "James Caan", "Fun Facts": "", "Distributor": "American Broadcasting Company (ABC)", "Release Year": "1974", "location": {"lat": 34.9840089, "lng": -120.4495793}}]
@@ -111,6 +203,20 @@ class test_GET_Film_Locations_API(unittest.TestCase):
         self.assertEquals(1, int(response.headers.get('num_films_at_locations')))
 
     def test_request_existing_alphabetic_single_location_partial_match(self):
+        """ TESTING IF Autocomplete API will return only the two 'Locations' which have
+            words partially matching all the words in 'Alco Plaza'
+            (case-insensitive, diregarding non-alphanumeric input) which occurs
+            when 'ac_selected=False'
+
+            COMPARING WITH data retrieved from data loaded into MySQL from
+            raw file 'film_locations_in_san_francisco.csv' which was
+            downloaded from site @ https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am?
+
+            The comparison data was retrieved from MySQL using the following
+            query:
+
+            SELECT Locations FROM Locations WHERE Locations LIKE '%Alco' AND LOCATIONS LIKE '%Plaza'
+        """
         location = urllib.quote('Alco Plaza')
         response = self.client.get(url_for('film_locations',location=location) + '?page=1')
         expected_response = [{"location_mercator": {"y": 3874241.6097306004, "x": 732801.9287159997}, "Title": "Freebie and the Bean", "Production Company": "Warner Bros. Pictures", "Writer": "Robert Kaufman", "Locations": "Alco Plaza", "Director": "Richard Rush", "Actor 3": "Katherine Hepburn", "filmid": 317, "Actor 1": "Alan Arkin", "Actor 2": "James Caan", "Fun Facts": "", "Distributor": "American Broadcasting Company (ABC)", "Release Year": "1974", "location": {"lat": 34.9840089, "lng": -120.4495793}}, {"location_mercator": {"y": 4183294.827063401, "x": 552893.9434000009}, "Title": "The Conversation", "Production Company": "American Zoetrope", "Writer": "Francis Ford Coppola", "Locations": "Alcoa Building (1 Maritime Plaza)", "Director": "Francis Ford Coppola", "Actor 3": "", "filmid": 795, "Actor 1": "Gene Hackman", "Actor 2": "", "Fun Facts": "A partially-above ground parking structure near the building made it necessary for architects to make the Alcoa Building's diagonal bracing visible, instead of placing it inside and drastically reducing the amount usable interior space. ", "Distributor": "Paramount Pictures", "Release Year": "1974", "location": {"lat": 37.7954924, "lng": -122.3992123}}]

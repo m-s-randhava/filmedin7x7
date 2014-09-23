@@ -2,6 +2,10 @@ import unittest
 from flask import current_app, url_for
 from app import create_app
 
+""" TESTING IF the application returns the basic index/home page correctly
+
+    VERIFIED BY searching for phrase in response.
+"""
 class BasicsTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')

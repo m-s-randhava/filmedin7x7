@@ -4,7 +4,7 @@ from unittest import TestCase
 
 import os.path
 from app.storage.redis import RedisStore
-from app.migration.loadRedis import LoadRedis
+from app.migration.LoadRedisWithLocationPrefixes import LoadRedisWithLocationPrefixes
 from app import create_app
 from flask import current_app
 
@@ -16,7 +16,7 @@ class TestSearchRedis(TestCase):
         self.app = create_app('testing')
         self.app_context = self.app.app_context()
         self.app_context.push()
-        l = LoadRedis(os.getenv('FLASK_CONFIG') or 'default','film_locations_in_san_francisco_decorated.json','film_locations_in_san_francisco_coord.json')
+        l = LoadRedisWithLocationPrefixes(os.getenv('FLASK_CONFIG') or 'default','film_locations_in_san_francisco_decorated.json','film_locations_in_san_francisco_coord.json')
         l.load_locations_prefixes_into_redis()
 
     def test_basic_search(self):

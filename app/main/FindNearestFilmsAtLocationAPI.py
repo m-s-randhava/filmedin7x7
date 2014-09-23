@@ -40,7 +40,7 @@ class FindNearest7FilmsAtLocation(Resource):
         metadata for the films which were located closest to provided data.
         """
         time1 = time()
-
+        print "INSIDE"
         #   Converting Lat/Lng back to original signs
         lat = lat if lat_sign == "p" else (-1 * lat)
         lng = lng if lng_sign == "p" else (-1 * lng)
