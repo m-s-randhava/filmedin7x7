@@ -59,7 +59,7 @@ class FilmsAtLocations(Resource):
         except ValueError:
             abort(400)  # it was a string, not an int.
 
-        location = urllib.unquote(location).decode('utf8')
+        location = urllib.unquote(location).decode('utf8').replace ("'", " ")
 
         try:
             r_store = RedisStore(current_app.config['REDIS_AUTOCOMPLETE_SORTED_SET'], current_app.config['REDIS_HOSTNAME'], current_app.config['REDIS_PORT'], current_app.config['REDIS_DB'], current_app.config['REDIS_PASSWORD'])
@@ -76,7 +76,7 @@ class FilmsAtLocations(Resource):
             return response
 
         if ac is not None and ac == 'True':
-            film_locations = [film_location for film_location in film_locations if film_location['Locations'] == location]
+            film_locations = [film_location for film_location in film_locations if film_location['Locations'].replace ("'", " ") == location]
 
         num_films_at_locations = len(film_locations)
 

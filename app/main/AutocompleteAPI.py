@@ -34,7 +34,7 @@ class AutoCompleteLocation(Resource):
 
         RETURNS list of results
         """
-        search_term = request.args.get('term')
+        search_term = request.args.get('term').replace ("'", " ")
         response = []
 
         #   Wrap access to Redis in try/catch to insure against unavailability for any reason
