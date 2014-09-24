@@ -4,6 +4,32 @@ filmedin7x7 -- An implementation of "SF Movies"
 
 An application listing which films have been filmed in SF and where they have been filmed.
 
+This is a full-stack implementation:
+
+    A.  A Backend implemented in Python using the Flask framework to implement a RESTful
+        API, also employing other Flask aspects like Flask-Testing, to implement a 
+        rudimentary automated testing framework.
+        
+        [IMPORTANT!  I took the opportunity to learn the Flask framework.  I have never before
+        employed a framework in Python, though I have used frameworks in other languages.  
+        While at the latest startup, we actually implemented our own lightweight framework,
+        both for the backend and frontend.]
+    
+    B.  A Frontend implemented using Bootstrap.css and Backbone.js.
+
+        [IMPORTANT!  I took the opportunity to learn the Bootstrap CSS framework.  Also, 
+        though I've used Backbone.js in the past, I never devoted an in-depth study of the
+        framework which I did for this project.]
+
+This application has implemented additional features than those detailed in the spec for
+"SF Movies."
+
+    A.  Implemented 'partial' and 'exact' matching upon the 'Locations' field for the movies.
+    B.  Implemented a "Find Nearest 7 Movie Locations" to my current location (especially
+        relevant for mobile devices).
+    C.  Implemented a mobile iOS version of this application, tested live successfully while
+        in SF.
+
 This application does the following:
 
     1.  Allows users to search a Google map centered at San Francisco City Hall by "location,"
