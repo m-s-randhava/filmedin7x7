@@ -1,3 +1,4 @@
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/filmedin7x7_10.jpg) 
 filmedin7x7 -- An implementation of "SF Movies"
 ==================================================
 
@@ -38,3 +39,55 @@ This application does the following:
     2.  Presents a button named "Find Nearest 7 Locations" which, when pressed, will show the
         7 closest movies filmed near the user's current position (obviously this is only 
         meaningful if the user is currently in the city at that time).
+
+Stepping through the UI
+--------------------------------------------------
+
+*   The Landing Page
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/H.png) 
+
+
+*   As soon as you begin typing, the autocomplete dropdown continually makes matching location
+    suggestions
+*   Additionally, all matching films are retrieved, paginated, and markers for the first ten
+    results are place on the map
+*   Note the results are labeled by letter in the results pane and their associated marker icons
+    on the map are also labeled
+
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Autocomplete.png) 
+
+
+*   An example of the ongoing refinement of Autocomplete suggestions and retrieved results, from
+    entering a simple 'm' above to 'mari' here
+*   At this point there are 2 pages of results
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Autocomplete_refinement.png)
+
+
+*   Clicking on page 2 of the pagination widget
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Pagination.png)
+
+
+*   Clicking on any marker on the map brings up an info window which displays all the film meta-
+    data
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Marker_Info.png)
+
+
+*   For the user's current location, on City Hall's steps, these are the 7 closest films made near
+    that location
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Find_nearest.png)
+
+
+*   In these results, the bottom two movies are at the same location and so they overlap
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Films_at_same_location_1.png)
+
+
+*   In these results, the bottom two movies also are at the same location and so they overlap
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Films_at_same_location_2.png)
