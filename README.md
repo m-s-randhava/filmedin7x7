@@ -125,3 +125,131 @@ Stepping through the UI
 *   In these results, the bottom two movies also are at the same location and so they overlap
 
 ![alt tag](http://filmedin7x7.herokuapp.com/static/docs/Films_at_same_location_2.png)
+
+
+RESTful API Endpoints
+--------------------------------------------------
+
+### Autocompletion Endpoint ###
+
+    GET http://filmedin7x7.herokuapp.com/filmedin7x7.herokuapp.com/film/locations/autocomplete?term=[LOCATION_PREFIX]
+
+### Film-Locations Endpoint ###
+
+    GET http://filmedin7x7.herokuapp.com/filmedin7x7.herokuapp.com/film/locations/[LOCATION_PREFIX]?page=1
+
+### Films-Near-Me  Endpoint ###
+
+    GET http://filmedin7x7.herokuapp.com/film/7nearme/lat/[absolute_value([LATITUDE - float])]/<string:lat_sign>/[p|n]/[absolute_value([LATITUDE - float])]/[p|n]
+
+Feature #1:     Autocompletion
+--------------------------------------------------
+
+### Front-End ###
+
+    To provide the Autocompletion dropdown UI functionality this application is employing 
+    the jQuery Autocomplete widget, and it is using the remote functionality to retrieve
+    results as you type from the "Autocompletion Endpoint" (found above).
+    
+
+### Back-End ###
+
+    Since the size of searchable feature set feeding the autocomplete functionality is
+    not overly large, and since autocompletion demands a very rapid response, this 
+    application employs Redis as a fast memory store of the results.  In the course of
+    investigation and implementation, an existing python package using Redis to provide
+    autocompletion was found, 'redis-completion.'  It essentially leans of Redis' ability
+    to provide simple queryable data structures, and in this case it store prefixes of all
+    components of all locations within a sorted set and uses the ZRANGE and ZINTERSECT
+    functionality to perform matching.  Because of these existing data structures so well
+    suited to the autocompletion demands within an in-memory fast store like Redis, it 
+    made for a very apt solution.
+
+    [IMPORTANT!  I took the opportunity to learn here again, more about Redis than I had
+    already known, how to interact with Redis via Python, and employing it to solve a 
+    well-known problem.]
+
+
+Feature #2:     RESTful API (Backend)
+--------------------------------------------------
+
+### Back-End ###
+
+    In addition to Flask there is a very simple and elegant package called Flask-RESTful,
+    that provides a framework to allow for clean and robust implementation of a REST API.
+    
+    Capabilities of the Flask-RESTful framework were used such as the ability to enforce
+    correct urls.
+    
+    [NOTE!  I would imagine a service like this might be provided free to the public,
+    perhaps selling ads against the service.  As such, authorization was not enforced on
+    the API's.  Additionally, though it was not implemented here, it would be wise to put
+    rate-limiting of the API's in place as well.]    
+    
+    The Flask-RESTful API was used to provide the 3 REST API's detailed above.
+    
+    For calls made to the 'Film-Locations Endpoint,' pagination was employed upon the 
+    results.  The results were returned 10 at a time for each request and pagination
+    information was sent back in the header response, keeping things cleanly
+    RESTful.
+    
+    The Flask testing framework was used to test the API's from request to response.
+
+
+Feature #3:     Single-Page UI (Frontend)
+--------------------------------------------------
+
+### Front-End ###
+
+    The front-end is a single page UI.  There are essentially no page refreshes required.
+    
+    Employing Backbone.js's MVC framework allows separate views to update themselves 
+    whenever the composed collection fetches anew from its associated REST API endpoint.
+    
+    This allows for a very fast response, achieving things like filtration of results as 
+    you type.
+    
+Feature #4:     Find Nearest 7 (Backend)
+--------------------------------------------------
+
+### Front-End ###
+
+    To ascertain the user's location, if a device had a 'navigator.geolocation' available,
+    the position was determined in that way.
+    
+
+### Back-End ###
+
+    To perform an O(ln) search for nn points nearest a given point, I decided to employ
+    a basic data structure called a kd-tree.  I found that the hallowed python scipy
+    library has a well-known kd-tree implementation available.  To make use of the
+    kd-tree, I needed to treat the geolocated lat/lng positions as 2D points.  To achieve
+    this I found I needed to convert them to UTM (Universal Transverse Mercator) projection
+    points.  Once this is done, and the kd-tree is built, for any user derived point
+    7 nearest points can be quickly found.
+    
+    Once the point was found, the actual films at those locations needed to be returned,
+    and so an inverted index was built to allow for hashing points to films.
+    
+    These structures are built only once at application startup.  They are made available
+    via the application context to those requests specifically requiring their use, which
+    is the one for the Films-Near-Me  Endpoint.
+    
+    [IMPORTANT!  I wanted to really understand the problem of geolocalized search since
+    it interests me a great deal.  I am aware of GeoSpatial databases and NoSQL options
+    (e.g., MongoDB).  I opted not to use these so that I could understand this problem
+    at a more fundamental level.  I will be studying those GeoSpatial option now in 
+    more detail now that I understand the problem.]    
+
+
+Feature #5:     Data
+--------------------------------------------------
+
+Feature #6:     Mapping
+--------------------------------------------------
+
+Feature #7:     Mapping
+--------------------------------------------------
+
+Feature #8:     Mobile App
+--------------------------------------------------
