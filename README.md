@@ -166,10 +166,16 @@ Feature #1:     Autocompletion
     functionality to perform matching.  Because of these existing data structures so well
     suited to the autocompletion demands within an in-memory fast store like Redis, it 
     made for a very apt solution.
+    
+    The validity of using Redis for autocomplete was verified by performing similar
+    searches within MySQl and verifying that the Redis results were the same as those
+    returned by MySQL.
 
     [IMPORTANT!  I took the opportunity to learn here again, more about Redis than I had
     already known, how to interact with Redis via Python, and employing it to solve a 
-    well-known problem.]
+    well-known problem.  Autocompletion could also have been achieved simply by using 
+    MySQL or some other NoSQL backing store, but I chose Redis for its performance and
+    to learn something anew.]
 
 
 Feature #2:     RESTful API (Backend)
@@ -230,6 +236,12 @@ Feature #4:     Find Nearest 7 (Backend)
     points.  Once this is done, and the kd-tree is built, for any user derived point
     7 nearest points can be quickly found.
     
+    The validity of this approach and the correctness of the kd-tree's operation was 
+    validated through testing.  In particular, a point was chosen manually on a Google
+    Map and 15 other locations, 7 of which could be visually ascertained to be closest
+    to the chosen point with certainty.  The kd-tree functionality correctly identified
+    these 7.
+    
     Once the point was found, the actual films at those locations needed to be returned,
     and so an inverted index was built to allow for hashing points to films.
     
@@ -247,11 +259,67 @@ Feature #4:     Find Nearest 7 (Backend)
 Feature #5:     Data
 --------------------------------------------------
 
+    A form of ETL had to occur, at least to clean the data to some extent.  Certain
+    unicode errors, non-alphanumeric elements, etc. had to cleaned up and standard-
+    ized.  
+    
+    When querying Google's Maps API for geolocalization, you had to be careful to 
+    limit the search to within San Francisco's confines.  Additionally, sometimes
+    a location's description or certain non-standard ways of representing addresses
+    could not be correctly geolocalized, as verified by testing.  This brings up
+    an interesting and important question as to how to verify that all geolocalizations
+    are correct when the data is large-scale and what to do when those errors are
+    identified.
+
 Feature #6:     Mapping
 --------------------------------------------------
 
-Feature #7:     Mapping
+    Maps and markers and geolocalization are all provided by making use of the 
+    Google Maps API.  
+    
+    Marker icons have been created by me.
+    
+    As markers are added to the map, I made use of drop animation to alert the user
+    to the fact that things were changing and filtering as a search was being 
+    performed.
+    
+    Clicking on a marker brings up an info window describing that location and its
+    film relevance.
+
+Feature #7:     Tests
 --------------------------------------------------
+
+### Front-End ###
+
+    Ideally, time permitting, it would have been possible to employ Jasmine/Karma 
+    for front-end unit testing of the UI.  This was not possible owing to 
+    constraints of time.
+
+### Back-End ###
+
+    The Back-End has been as thoroughly tested as time would allow.  It is definitely
+    possible to add more tests, and this can be done easily, by following the pythonic
+    unittest examples employing Flask's testing library functionality found in the 
+    '/tests' folder.
+    
+    These tests run against the RESTful API and verify correctness.
+    
+    They are automated and can be run by typing the following in the directory
+    that contains the code contents:
+    
+        python manage.py test
+        
 
 Feature #8:     Mobile App
 --------------------------------------------------
+
+    I created a mobile application from this application, as I thought the use case
+    was most suited for mobile, and again, to learn.
+    
+    I employed Phonegap to convert the app into an iOS application.  Additionaly
+    tweaking had to be done to the iOS to get the app to look polished and as
+    production ready as possible.
+    
+    The app displays the search bar as the top element, and the results pane, the
+    pagination widget, and the map, all appear in order below.  All other features
+    of operation remain the same.
