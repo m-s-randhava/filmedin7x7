@@ -54,7 +54,10 @@ class FilmsAtLocations(Resource):
         if p is None:
             abort(400)
 
-        page = int(p)
+        try:
+            page = int(p)
+        except ValueError:
+            abort(400)  # it was a string, not an int.
 
         location = urllib.unquote(location).decode('utf8')
 
@@ -84,6 +87,9 @@ class FilmsAtLocations(Resource):
 
         pages = num_films_at_locations/results_per_page
         pages = (pages + 1) if num_films_at_locations % results_per_page > 0 else pages
+
+        if (page != 1) and ((page < 1) or (page > pages)):
+            abort(400)
 
         prev = 0
         if (page + 1) <= pages:
