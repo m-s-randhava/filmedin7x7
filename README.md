@@ -9,17 +9,8 @@ This is a full-stack implementation:
     A.  A Backend implemented in Python using the Flask framework to implement a RESTful
         API, also employing other Flask aspects like Flask-Testing, to implement a 
         rudimentary automated testing framework.
-        
-        [IMPORTANT!  I took the opportunity to learn the Flask framework.  I have never before
-        employed a framework in Python, though I have used frameworks in other languages.  
-        While at the latest startup, we actually implemented our own lightweight framework,
-        both for the backend and frontend.]
     
     B.  A Frontend implemented using Bootstrap.css and Backbone.js.
-
-        [IMPORTANT!  I took the opportunity to learn the Bootstrap CSS framework.  Also, 
-        though I've used Backbone.js in the past, I never devoted an in-depth study of the
-        framework which I did for this project.]
         
         [NOTE:  The layout template was taken from an open source template available @
         http://derekeder.com/searchable_map_template/.  The template was stripped down and
@@ -29,6 +20,17 @@ This is a full-stack implementation:
     C.  The Google Maps API was used for all maps display, geocoding of locations, and
         "Find my Location" functionality.
 
+**IMPORTANT!**
+        [I took the opportunity to learn the Flask framework.  I have never before
+        employed a framework in Python, though I have used frameworks in other languages.  
+        While at the latest startup, we actually implemented our own lightweight framework,
+        both for the backend and frontend.]
+
+**IMPORTANT!**
+        [I took the opportunity to learn the Bootstrap CSS framework.  Also, 
+        though I've used Backbone.js in the past, I never devoted an in-depth study of the
+        framework which I did for this project.]
+        
 This application has implemented additional features than those detailed in the spec for
 "SF Movies."
 
