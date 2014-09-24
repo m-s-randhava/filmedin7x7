@@ -320,6 +320,54 @@ Feature #8:     Mobile App
     tweaking had to be done to the iOS to get the app to look polished and as
     production ready as possible.
     
+    Bootstrap.css made things work quite well.
+    
     The app displays the search bar as the top element, and the results pane, the
     pagination widget, and the map, all appear in order below.  All other features
     of operation remain the same.
+
+### Mobile App UI Step-Through ###
+
+*   Mobile App landing page with elements placed vertically
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m1.PNG)
+
+*   Autocompletion, clear, and works well
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m2.PNG)
+
+*   Results pane clear, scrollable
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m3.PNG)
+
+*   Results pane clear, scrollable
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m4.PNG)
+
+*   Results pane clear, scrollable, and pagination widget is clear and functional
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m5.PNG)
+
+*   Markers appear clearly
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m6.PNG)
+
+*   Marker info is clear and fully visible
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m7.PNG)
+
+*   Attempting to "Find Near Me," being asked for permission by iOS
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m8.PNG)
+
+*   Live "Find Near Me" results in SF (steps of City Hall)
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m9.PNG)
+
+*   Live "Find Near Me" results in SF (near Montgomery St.)
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m10.PNG)
+
+*   The app as it appears on the iOS homescreen (pardon my daughter!)
+
+![alt tag](http://filmedin7x7.herokuapp.com/static/img/m11.PNG)
