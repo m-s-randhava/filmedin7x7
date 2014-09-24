@@ -20,6 +20,14 @@ This is a full-stack implementation:
         [IMPORTANT!  I took the opportunity to learn the Bootstrap CSS framework.  Also, 
         though I've used Backbone.js in the past, I never devoted an in-depth study of the
         framework which I did for this project.]
+        
+        [NOTE:  The layout template was taken from an open source template available @
+        http://derekeder.com/searchable_map_template/.  The template was stripped down and
+        adjusted for this use case, and all the logic is not used.  All logic is my own
+        development.]
+        
+    C.  The Google Maps API was used for all maps display, geocoding of locations, and
+        "Find my Location" functionality.
 
 This application has implemented additional features than those detailed in the spec for
 "SF Movies."
