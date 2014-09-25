@@ -40,6 +40,23 @@ This application has implemented additional features than those detailed in the 
     C.  Implemented a mobile iOS version of this application, tested live successfully while
         in SF.
 
+Files
+--------------------------------------------------
+    
+    app/data        :   Contains RAW data obtained from SF Movies site, cleansed data, decorated data, etc.   
+    app/main        :   Python files and API code
+    app/migration   :   Python utilities that operate on data
+    app/static      :   Front-end UI code
+    app/storage     :   Very minimal Simple Redis DAO
+    app/structures  :   Data structures
+    app/templates   :   Flask templates for the front-end response
+    app/tests       :   Python tests (automated as defined in app/manage.py)
+    app/config.py   :   Configuration settings for the application
+    app/manage.py   :   Runs the application
+    
+Application Features
+--------------------------------------------------
+
 This application does the following:
 
     1.  Allows users to search a Google map centered at San Francisco City Hall by "location,"
